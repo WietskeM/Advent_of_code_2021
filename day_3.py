@@ -34,6 +34,20 @@ epsilon_nonbin = int(epsilon, 2)
 result = gamma_nonbin * epsilon_nonbin
 print(result)
 
+# day 3 Q 2
+# it's time to write some functions
 
+def most_common_bit(binaries_list, digit):
+    count_0 = 0
+    count_1 = 0
+    for item in range(len(binaries_list)):
+        if binaries_list[item][digit] == '1':
+            count_1 += 1
+        else:
+            count_0 +=1
+    
+    if count_1 > count_0:
+        
+    
 
        
