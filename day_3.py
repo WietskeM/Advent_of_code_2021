@@ -57,13 +57,31 @@ def most_common_bit(binaries_list, digit):
     
     if count_1 > count_0:
         CO2 = '1'
+    elif count_1 == count_0:
+        CO2 = '1'
     else:
         CO2 = '0'
 
     return CO2
 
-def least_common_bit():
-        
+def least_common_bit(binaries_list, digit): 
+    count_0 = 0
+    count_1 = 0
+    for item in range(len(binaries_list)):
+        if binaries_list[item][digit] == '1':
+            count_1 += 1
+        else:
+            count_0 +=1
+    
+    if count_1 > count_0:
+        O2 = '0'
+    elif count_1 == count_0:
+        O2 = '0'
+    else: 
+        O2 = '1'
+
+    return O2
+
 # for the CO2 rating
 
 binaries_loaded = []
@@ -73,16 +91,33 @@ with open('day_3.txt', 'r') as input3:
 
 
 CO2_rating = ''
+O2_rating = '' 
 
-binaries_temp = binaries_loaded
+binaries_temp_CO2 = binaries_loaded
+binaries_temp_O2 = binaries_loaded
 
 for position in range(12):
-    CO2_append =  most_common_bit(binaries_temp, position)
-    binaries_temp = drop_items(binaries_temp, position, CO2_append)
-    print('i did it')
 
-    CO2_rating = CO2_rating + CO2_append
+    if len(binaries_temp_CO2) > 1:
+        CO2_append =  most_common_bit(binaries_temp_CO2, position)
+        binaries_temp_CO2 = drop_items(binaries_temp_CO2, position, CO2_append)
+        CO2_rating = CO2_rating + CO2_append
+    else:
+        CO2_rating = binaries_temp_CO2[0]
+
+    if len(binaries_temp_O2) > 1:
+        O2_append =  least_common_bit(binaries_temp_O2, position)
+        binaries_temp_O2 = drop_items(binaries_temp_O2, position, O2_append)
+        O2_rating = O2_rating + O2_append
+    else:
+        O2_rating = binaries_temp_O2[0]
 
 print (CO2_rating)
+print(O2_rating)
 
-       
+CO2_nonbin = int(CO2_rating, 2)  
+O2_nonbin = int(O2_rating, 2)       
+
+answer = CO2_nonbin*O2_nonbin
+
+print(answer)
