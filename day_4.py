@@ -1,3 +1,38 @@
+import numpy as np
+
+def draw_numbers(numbers, drawn_numbers):
+    # Function to draw the next 5 numbers
+    for i in range(5):
+        drawn_numbers.append(numbers[0])
+        numbers.pop(0)
+    return drawn_numbers
+
+def check_bingocard(card, drawn_numbers):
+    #function that chacks if a card has bingo 
+    for list in card:
+        comparison = set(list) & set(drawn_numbers)
+        if len(comparison) == 5:
+            Bingo = True
+            return Bingo
+
+    card_to_array = np.array(card)
+    transpose = card_to_array.T
+    card_transpose = transpose.tolist()
+
+    for list_t in card_transpose:
+        comparison_transpose = set(list_t) & set(drawn_numbers)
+        if len(comparison_transpose) == 5:
+            Bingo = True
+            return Bingo
+
+    Bingo = False
+    return Bingo
+
+def find_answer(card, drawn_numbers):
+    numbers=[]
+    for list in card:
+           
+
 # Lets load the bingocards
 full_input = []
 with open('day_4.txt', 'r') as input4:
@@ -35,19 +70,17 @@ for line in bingo_cards_input:
         grid.append(row_final)
         
 
-def draw_numbers(numbers, drawn_numbers):
-    # Function to draw the next 5 numbers
-    for i in range(5):
-        drawn_numbers.append(numbers[0])
-        numbers.pop(0)
-    return drawn_numbers
-
-def check_bingocard(card, drawn_numbers):
-    #function that chacks if a card has bingo 
-    Bingo = False
-    return Bingo
-
 drawn_numbers = []
-drawn_numbers = draw_numbers(numbers, drawn_numbers)
-print(drawn_numbers)
-print(numbers)
+for i in range(len(drawn_numbers)/5):
+    drawn_numbers = draw_numbers(numbers, drawn_numbers)
+    for card in bingo_cards_input:
+        bingo = check_bingocard(card, drawn_numbers)
+        if bingo == True:
+            # doe hier de functie die het antwoord geeft
+            answer = []
+            print(answer)
+            
+
+
+        
+
