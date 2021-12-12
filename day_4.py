@@ -2,9 +2,9 @@ import numpy as np
 
 def draw_numbers(numbers, drawn_numbers):
     # Function to draw the next 5 numbers
-    for i in range(5):
-        drawn_numbers.append(numbers[0])
-        numbers.pop(0)
+    drawn_numbers.append(numbers[0])
+    numbers.pop(0)
+    
     return drawn_numbers
 
 def check_bingocard(card, drawn_numbers):
@@ -31,6 +31,11 @@ def check_bingocard(card, drawn_numbers):
 def find_answer(card, drawn_numbers):
     numbers=[]
     for list in card:
+        for i in range(5):
+            if list[i] not in drawn_numbers:
+                numbers.append(list[i])
+    return numbers
+
            
 
 # Lets load the bingocards
@@ -68,17 +73,45 @@ for line in bingo_cards_input:
         map_row = map(int, row)
         row_final = list(map_row)
         grid.append(row_final)
-        
 
+# drawn_numbers = []
+# drawn_numbers = draw_numbers(numbers, drawn_numbers)
+# print(drawn_numbers)
+
+# test_card = [[1, 2, 3, 4, 5],[6, 7, 8, 9, 10],[11, 12, 13, 14, 15],[16, 17, 18, 19, 20],[21, 22, 23, 24, 25]]
+# test_numbers = [1, 6, 8, 17, 20, 11, 16, 21, 5, 10]
+# test_drawn = []
+
+# test_drawn = draw_numbers(test_numbers, test_drawn)
+# bingo = check_bingocard(test_card, test_drawn)
+# print(bingo)
+# print(test_numbers)
+# test_drawn = draw_numbers(test_numbers, test_drawn)
+# bingo = check_bingocard(test_card, test_drawn)
+# print(bingo)
+# answer = sum(find_answer(test_card, test_drawn))
+# print(answer)
+end = False
 drawn_numbers = []
-for i in range(len(drawn_numbers)/5):
+
+
+for i in range(int(len(numbers))):
     drawn_numbers = draw_numbers(numbers, drawn_numbers)
-    for card in bingo_cards_input:
+    
+    for card in bingocards:
         bingo = check_bingocard(card, drawn_numbers)
         if bingo == True:
             # doe hier de functie die het antwoord geeft
-            answer = []
-            print(answer)
+            answer = sum(find_answer(card, drawn_numbers))
+            final_number = drawn_numbers[-1]
+            print('The first answer is ' + str(answer*final_number))
+            end = True
+    if end == True:
+        break
+
+# print(bingocards)
+# print(drawn_numbers)
+# print(numbers)    
             
 
 
