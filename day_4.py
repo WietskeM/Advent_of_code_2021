@@ -94,26 +94,41 @@ for line in bingo_cards_input:
 end = False
 drawn_numbers = []
 
+# Use the block below for the first question of day 4
 
-for i in range(int(len(numbers))):
-    drawn_numbers = draw_numbers(numbers, drawn_numbers)
+# for i in range(int(len(numbers))):
+#     drawn_numbers = draw_numbers(numbers, drawn_numbers)
     
-    for card in bingocards:
-        bingo = check_bingocard(card, drawn_numbers)
-        if bingo == True:
-            # doe hier de functie die het antwoord geeft
-            answer = sum(find_answer(card, drawn_numbers))
-            final_number = drawn_numbers[-1]
-            print('The first answer is ' + str(answer*final_number))
-            end = True
-    if end == True:
-        break
+#     for card in bingocards:
+#         bingo = check_bingocard(card, drawn_numbers)
+#         if bingo == True:
+#             # doe hier de functie die het antwoord geeft
+#             answer = sum(find_answer(card, drawn_numbers))
+#             final_number = drawn_numbers[-1]
+#             print('The first answer is ' + str(answer*final_number))
+#             end = True
+#     if end == True:
+#         break
 
 # print(bingocards)
 # print(drawn_numbers)
 # print(numbers)    
             
-
+for i in range(int(len(numbers))):
+    drawn_numbers = draw_numbers(numbers, drawn_numbers)
+    
+    for card in bingocards:
+        bingo = check_bingocard(card, drawn_numbers)
+        if bingo == True and len(bingocards) > 1:
+            # doe hier de functie die het antwoord geeft
+            bingocards.remove(card)
+        elif bingo == True and len(bingocards) == 1:
+            answer = sum(find_answer(card, drawn_numbers))
+            final_number = drawn_numbers[-1]
+            print('the second answer is '+ str(answer*final_number))
+            end = True
+    if end == True:
+        break
 
         
 
