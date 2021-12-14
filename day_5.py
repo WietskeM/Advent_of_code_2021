@@ -55,10 +55,25 @@ def adjust_grid(grid, list_of_coordinates):
         grid[coordinate[1]][coordinate[0]] += 1
     return grid
 
-for pair in coordinates:
+test_grid = np.zeros((10, 10))
+test_coordinates = [[[0, 0], [0, 8]]]
+
+for pair in test_coordinates:
     direction = hor_or_ver(pair)
     list_of_coordinates = find_all_points(pair, direction)
-    grid = adjust_grid(grid, list_of_coordinates)
+    test_grid = adjust_grid(grid, list_of_coordinates)
 
-count = np.count_nonzero(grid > 1)
-print(count)
+print(test_grid)
+# for pair in coordinates:
+#     direction = hor_or_ver(pair)
+#     list_of_coordinates = find_all_points(pair, direction)
+#     grid = adjust_grid(grid, list_of_coordinates)
+
+# count = 0
+
+# for row in grid:
+#     for number in row:
+#         if number > 1:
+#             count+=1
+
+# print(count)
