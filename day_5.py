@@ -1,7 +1,9 @@
 
 import numpy as np
-
+import time
 # load the inputs
+
+start = time.time()
 coordinates = []
 with open('day_5.txt', 'r') as input5:
     for line in input5:
@@ -23,8 +25,10 @@ grid = np.zeros(shape = (1000, 1000))
 def hor_or_ver(pair):
     if pair[0][0] == pair[1][0]:
         direction = 'Vertical'
-    else:
+    elif pair[0][1] == pair[1][1]:
         direction = 'Horizontal'
+    else:
+        direction = 'Diagonal'
     return direction
 
 def find_all_points(pair, direction):
@@ -55,25 +59,16 @@ def adjust_grid(grid, list_of_coordinates):
         grid[coordinate[1]][coordinate[0]] += 1
     return grid
 
-test_grid = np.zeros((10, 10))
-test_coordinates = [[[0, 0], [0, 8]]]
 
-for pair in test_coordinates:
+for pair in coordinates:
     direction = hor_or_ver(pair)
-    list_of_coordinates = find_all_points(pair, direction)
-    test_grid = adjust_grid(grid, list_of_coordinates)
+    if direction != 'Diagonal':
+        list_of_coordinates = find_all_points(pair, direction)
+        grid = adjust_grid(grid, list_of_coordinates)
 
-print(test_grid)
-# for pair in coordinates:
-#     direction = hor_or_ver(pair)
-#     list_of_coordinates = find_all_points(pair, direction)
-#     grid = adjust_grid(grid, list_of_coordinates)
+count = (grid>1).sum()
 
-# count = 0
+print(count)
 
-# for row in grid:
-#     for number in row:
-#         if number > 1:
-#             count+=1
-
-# print(count)
+end = time.time()
+print(end-start)
