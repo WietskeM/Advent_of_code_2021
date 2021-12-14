@@ -43,7 +43,8 @@ def find_all_points(pair, direction):
         else:
            for i in range(step_size):
                 list_of_coordinates.append([pair[0][0] - (i+1), pair[0][1]]) 
-    else:
+
+    elif direction == 'Vertical':
         list_of_coordinates.append(pair[0])
         step_size = pair[0][1] - pair[1][1]
         if step_size < 0:
@@ -51,7 +52,20 @@ def find_all_points(pair, direction):
                 list_of_coordinates.append([pair[0][0], pair[0][1] + (j+1)])
         else:
             for j in range(step_size):
-                list_of_coordinates.append([pair[0][0], pair[0][1] - (j+1)])
+                list_of_coordinates.append([pair[0][0], pair[0][1] - (j+1)]) 
+
+    elif direction == 'Diagonal':
+        print(pair)
+        # account for all directions here (4 opties, links naar rechts 2 kanten en boven naar beneden 2 kanten)
+        list_of_coordinates.append(pair[0])
+        step_size = pair[0][0] - pair[1][0]
+        if step_size < 0:
+            for k in range(abs(step_size)):
+                list_of_coordinates.append([pair[0][0] + (k+1), pair[0][1] + (k+1)])
+        else:
+            for k in range(abs(step_size)):
+                list_of_coordinates.append([pair[0][0] - (k+1), pair[0][1] - (k+1)])
+
     return list_of_coordinates
 
 def adjust_grid(grid, list_of_coordinates):
@@ -62,9 +76,8 @@ def adjust_grid(grid, list_of_coordinates):
 
 for pair in coordinates:
     direction = hor_or_ver(pair)
-    if direction != 'Diagonal':
-        list_of_coordinates = find_all_points(pair, direction)
-        grid = adjust_grid(grid, list_of_coordinates)
+    list_of_coordinates = find_all_points(pair, direction)
+    grid = adjust_grid(grid, list_of_coordinates)
 
 count = (grid>1).sum()
 
