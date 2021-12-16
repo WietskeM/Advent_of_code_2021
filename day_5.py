@@ -58,13 +58,22 @@ def find_all_points(pair, direction):
         print(pair)
         # account for all directions here (4 opties, links naar rechts 2 kanten en boven naar beneden 2 kanten)
         list_of_coordinates.append(pair[0])
-        step_size = pair[0][0] - pair[1][0]
-        if step_size < 0:
-            for k in range(abs(step_size)):
-                list_of_coordinates.append([pair[0][0] + (k+1), pair[0][1] + (k+1)])
-        else:
-            for k in range(abs(step_size)):
-                list_of_coordinates.append([pair[0][0] - (k+1), pair[0][1] - (k+1)])
+        dir_x = pair[0][0] - pair[1][0]
+        dir_y = pair[0][1] - pair[1][1]
+        if dir_x < 0:
+            if dir_y<0:
+                for k in range(abs(dir_x)):
+                    list_of_coordinates.append([pair[0][0] + (k+1), pair[0][1] + (k+1)])
+            if dir_y > 0:
+                for k in range(abs(dir_x)):
+                    list_of_coordinates.append([pair[0][0] + (k+1), pair[0][1] - (k+1)])
+        elif dir_x > 0:
+            if dir_y < 0:
+                for k in range(abs(dir_x)):
+                    list_of_coordinates.append([pair[0][0] - (k+1), pair[0][1] + (k+1)])
+            elif dir_y>0:
+                for k in range(abs(dir_x)):
+                    list_of_coordinates.append([pair[0][0] - (k+1), pair[0][1] - (k+1)])
 
     return list_of_coordinates
 
